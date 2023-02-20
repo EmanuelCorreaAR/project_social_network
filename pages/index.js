@@ -1,4 +1,5 @@
 import Sidebar from '../components/Sidebar'
+import Feed from "../components/Feed"
 import Head from 'next/head'
 
 
@@ -13,7 +14,7 @@ export default function Home() {
       </Head>
       <main className='flex min-h-screen max-w-7xl mx-auto'>
         <Sidebar />
-
+        <Feed />
 
       </main>
     </div>

@@ -38,7 +38,7 @@ const Sidebar = () => {
 
       {/*button*/}
 
-      <button className="bg-[#a359a0] text-white rounded-full w-56 h-12 font-bold shadow-md hover:brightness-105 text-lg hidden xl:inline">
+      <button className="bg-[#a359a0] text-white rounded-full w-56 h-12 font-bold shadow-lg shadow-gray-400 hover:brightness-105 text-lg hidden xl:inline">
         Sweet
       </button>
       {/*mini-profile*/}
@@ -46,7 +46,7 @@ const Sidebar = () => {
         <img className="h-10 w-10 rounded-full xl:mr-2" src="" alt="userphoto" />
         <div className="leading-5 hidden xl:inline">
           <h4 className="font-bold">Emanuel Correa</h4>
-          <p className="text-gray-500" >Mi User @ssdfsdf</p>
+          <p className="text-gray-400" >Mi User @ssdfsdf</p>
         </div>
         <HiDotsHorizontal className="h-5 xl:ml-8 hidden xl:inline"/>
       </div>
