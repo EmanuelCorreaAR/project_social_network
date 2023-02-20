@@ -38,12 +38,12 @@ const Sidebar = () => {
 
       {/*button*/}
 
-      <button className="bg-[#a359a0] text-white rounded-full w-56 h-12 font-bold shadow-lg shadow-gray-400 hover:brightness-105 text-lg hidden xl:inline">
+      <button className="bg-[#a359a0] text-white rounded-full w-56 h-12 font-bold shadow-lg shadow-gray-200 hover:brightness-95 text-lg hidden xl:inline">
         Sweet
       </button>
       {/*mini-profile*/}
       <div className="hoverEffect text-gray-700 flex items-center justify-center xl:justify-start mt-auto">
-        <img className="h-10 w-10 rounded-full xl:mr-2" src="" alt="userphoto" />
+        <img className="h-10 w-10 rounded-full xl:mr-2" src="https://cdn-icons-png.flaticon.com/512/3135/3135768.png" alt="user-img" />
         <div className="leading-5 hidden xl:inline">
           <h4 className="font-bold">Emanuel Correa</h4>
           <p className="text-gray-400" >Mi User @ssdfsdf</p>
