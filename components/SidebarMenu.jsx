@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  HiOutlineHome,
-  HiOutlineHashtag,
-  HiOutlineBell,
-  HiOutlineInbox,
-  HiOutlineBookmark,
-  HiOutlineClipboard,
-  HiOutlineUser,
-  HiOutlineDotsCircleHorizontal,
-  HiDotsHorizontal,
-} from "react-icons/hi";
+
 
 const SidebarMenu = ({ text, Icon , active}) => {
   return (
