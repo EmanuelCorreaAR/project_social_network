@@ -15,7 +15,7 @@ import {
 
 const Sidebar = () => {
   return (
-    <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full">
+    <div className="hidden sm:flex flex-col p-2 xl:items-start fixed h-full xl:ml-20">
       {/*logo*/}
       <div className="hoverEffect p-0 hover:bg-purple-100 xl:px-1">
         <Image

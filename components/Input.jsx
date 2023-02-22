@@ -11,7 +11,7 @@ const Input = () => {
       />
       <div className="w-full divide-y divide-gray-200 ">
         <div className="">
-          <textarea className="w-full border-none focus:ring-0 text-lg placeholder-gray-300 tracking-widemin-h-[50px] text-gray-700" rows="3" placeholder="What's heppening?"></textarea>
+          <textarea className="w-full border-none focus:ring-0 text-lg placeholder-gray-300 tracking-widemin-h-[50px] text-gray-700" rows="3" placeholder="Something new?"></textarea>
         </div>
         <div className="flex items-center justify-between pt-2.5">
           <div className="flex">
