@@ -24,6 +24,7 @@ const Sidebar = () => {
           src="https://res.cloudinary.com/drscelx6f/image/upload/v1676919772/Social%20network%20images/Logo_Social_uu1fzq.png"
           width="70"
           height="70"
+          alt="logo-social"
         ></Image>
       </div>
       {/*menu*/}

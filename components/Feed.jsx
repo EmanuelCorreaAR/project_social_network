@@ -1,29 +1,22 @@
-import React from "react";
+import { db } from "@/firebase";
+import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
+import React, { useEffect, useState } from "react";
 import { HiOutlineSparkles } from "react-icons/hi2";
 import Input from "./Input";
 import Posts from "./Posts";
 
 const Feed = () => {
-  const posts = [
-    {
-      id: "1",
-      name: "Emanuel Correa",
-      username: "usuariosocial",
-      userImg: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
-      img: "https://images.unsplash.com/photo-1676763134010-5aefbe59285b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80",
-      text: "Nice to have",
-      timestamp: "2 hours ago",
-    },
-    {
-      id: "2",
-      name: "Emanuel Correa",
-      username: "usuariosocial",
-      userImg: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
-      img: "https://images.unsplash.com/photo-1676839560078-a6c6faa8637d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80",
-      text: "Wooow",
-      timestamp: "3 hours ago",
-    },
-  ];
+  const [posts, setPosts] = useState([]);
+  useEffect(
+    () =>
+      onSnapshot(
+        query(collection(db, "posts"), orderBy("timestamp", "desc")),
+        (snapshot) => {
+          setPosts(snapshot.docs);
+        }
+      ),
+    []
+  );
 
   return (
     <div className="xl:ml-[370px] border-l border-r xl:min-w-[576px] sm:ml-[73px] flex-grow max-w-xl border-gray-200">
@@ -44,3 +37,25 @@ const Feed = () => {
 };
 
 export default Feed;
+
+//Dummy data
+// const posts = [
+//   {
+//     id: "1",
+//     name: "Emanuel Correa",
+//     username: "usuariosocial",
+//     userImg: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
+//     img: "https://images.unsplash.com/photo-1676763134010-5aefbe59285b?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1472&q=80",
+//     text: "Nice to have",
+//     timestamp: "2 hours ago",
+//   },
+//   {
+//     id: "2",
+//     name: "Emanuel Correa",
+//     username: "usuariosocial",
+//     userImg: "https://cdn-icons-png.flaticon.com/512/3135/3135768.png",
+//     img: "https://images.unsplash.com/photo-1676839560078-a6c6faa8637d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1332&q=80",
+//     text: "Wooow",
+//     timestamp: "3 hours ago",
+//   },
+// ];
