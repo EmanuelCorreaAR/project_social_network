@@ -9,7 +9,7 @@ import {
   HiHeart,
 } from "react-icons/hi";
 import Moment from "react-moment";
-import { db } from "@/firebase";
+import { db, storage } from "@/firebase";
 import {
   collection,
   deleteDoc,
@@ -18,6 +18,7 @@ import {
   setDoc,
 } from "firebase/firestore";
 import { signIn, useSession } from "next-auth/react";
+import { deleteObject, ref } from "firebase/storage";
 
 const Posts = ({ post }) => {
   const { data: session } = useSession();
@@ -38,7 +39,7 @@ const Posts = ({ post }) => {
   }, [likes]);
 
   async function likePost() {
-    if(session){
+    if (session) {
       if (hasliked) {
         await deleteDoc(doc(db, "posts", post.id, "likes", session?.user.uid));
       } else {
@@ -46,8 +47,15 @@ const Posts = ({ post }) => {
           username: session.user.username,
         });
       }
-    }else{
-      signIn()
+    } else {
+      signIn();
+    }
+  }
+
+  async function deletePost() {
+    if (window.confirm("Are you sure you want to delete this post?")) {
+      deleteDoc(doc(db, "posts", post.id));
+      deleteObject(ref(storage, `posts/${post.id}/image`));
     }
   }
 
@@ -91,7 +99,13 @@ const Posts = ({ post }) => {
         {/* icons */}
         <div className="flex justify-between text-gray-500 p-2">
           <HiOutlineChat className="h-9 w-9 hoverEffect p-1.5 hover:text-[#a359a0] hover:bg-purple-100" />
-          <HiOutlineTrash className="h-9 w-9 hoverEffect p-1.5 hover:text-red-600 hover:bg-red-100" />
+          {session?.user.uid === post?.data().id && (
+            <HiOutlineTrash
+              onClick={deletePost}
+              className="h-9 w-9 hoverEffect p-1.5 hover:text-red-600 hover:bg-red-100"
+            />
+          )}
+
           <div className="flex items-center">
             {hasliked ? (
               <HiHeart
@@ -104,7 +118,14 @@ const Posts = ({ post }) => {
                 className="h-9 w-9 hoverEffect p-1.5 hover:text-red-600 hover:bg-red-100"
               />
             )}
-            {likes.length > 0 && <span className={`${hasliked && "text-red-600"} text-sm select-none`}>{" "}{likes.length}</span>}
+            {likes.length > 0 && (
+              <span
+                className={`${hasliked && "text-red-600"} text-sm select-none`}
+              >
+                {" "}
+                {likes.length}
+              </span>
+            )}
           </div>
 
           <HiOutlineShare className="h-9 w-9 hoverEffect p-1.5 hover:text-[#a359a0] hover:bg-purple-100" />
