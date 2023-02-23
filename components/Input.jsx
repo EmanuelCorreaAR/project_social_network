@@ -85,7 +85,7 @@ const Input = () => {
                 />
                 <img
                   src={selectedFile}
-                  className={`${loading && "animate-pulse"}`}
+                  className={`${loading && "animate-pulse"}`}                  
                 />
               </div>
             )}
@@ -94,7 +94,7 @@ const Input = () => {
                 <>
                   <div className="flex">
                     <div onClick={() => filePickerRef.current.click()}>
-                      <HiOutlinePhotograph className="text-3xl text-[#a359a0] hoverEffect p-2 " />
+                      <HiOutlinePhotograph className="text-2xl text-[#a359a0] hoverEffect p-2 " />
                       <input
                         type="file"
                         hidden
@@ -102,7 +102,7 @@ const Input = () => {
                         onChange={addImageToPost}
                       />
                     </div>
-                    <HiOutlineEmojiHappy className="text-3xl text-[#a359a0] hoverEffect p-2 " />
+                    <HiOutlineEmojiHappy className="text-2xl text-[#a359a0] hoverEffect p-2 " />
                   </div>
                   <button
                     onClick={sendPost}
