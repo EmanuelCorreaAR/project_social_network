@@ -19,11 +19,14 @@ import {
 } from "firebase/firestore";
 import { signIn, useSession } from "next-auth/react";
 import { deleteObject, ref } from "firebase/storage";
+import { useRecoilState } from "recoil";
+import { modalState } from "@/atom/modalAtom";
 
 const Posts = ({ post }) => {
   const { data: session } = useSession();
   const [likes, setLikes] = useState([]);
   const [hasliked, setHasLiked] = useState(false);
+  const [open, setOpen] = useRecoilState(modalState)
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -55,7 +58,9 @@ const Posts = ({ post }) => {
   async function deletePost() {
     if (window.confirm("Are you sure you want to delete this post?")) {
       deleteDoc(doc(db, "posts", post.id));
-      deleteObject(ref(storage, `posts/${post.id}/image`));
+      if (post.data().image) {
+        deleteObject(ref(storage, `posts/${post.id}/image`));
+      }
     }
   }
 
@@ -70,9 +75,9 @@ const Posts = ({ post }) => {
       {/* right side */}
       <div>
         {/* header */}
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between ">
           {/* post  user info */}
-          <div className="flex items-center space-x-1 whitespace-nowrap">
+          <div className="flex items-center space-x-3 whitespace-nowrap">
             <h4 className="font-bold text-[15px] sm:text-[16px] hover:underline">
               {post.data().name}
             </h4>
@@ -93,12 +98,12 @@ const Posts = ({ post }) => {
         {/* post image */}
         <img
           className="rounded-xl mr-4"
-          src={post.data().image}
-          alt="post-img"
+          src={post?.data()?.image}
+          alt=""
         />
         {/* icons */}
         <div className="flex justify-between text-gray-500 p-2">
-          <HiOutlineChat className="h-9 w-9 hoverEffect p-1.5 hover:text-[#a359a0] hover:bg-purple-100" />
+          <HiOutlineChat onClick={()=>setOpen(!open)} className="h-9 w-9 hoverEffect p-1.5 hover:text-[#a359a0] hover:bg-purple-100" />
           {session?.user.uid === post?.data().id && (
             <HiOutlineTrash
               onClick={deletePost}
