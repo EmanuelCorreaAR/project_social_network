@@ -20,13 +20,14 @@ import {
 import { signIn, useSession } from "next-auth/react";
 import { deleteObject, ref } from "firebase/storage";
 import { useRecoilState } from "recoil";
-import { modalState } from "@/atom/modalAtom";
+import { modalState, postIdState } from "@/atom/modalAtom";
 
 const Posts = ({ post }) => {
   const { data: session } = useSession();
   const [likes, setLikes] = useState([]);
   const [hasliked, setHasLiked] = useState(false);
-  const [open, setOpen] = useRecoilState(modalState)
+  const [open, setOpen] = useRecoilState(modalState);
+  const [postId, setPostId] = useRecoilState(postIdState);
 
   useEffect(() => {
     const unsubscribe = onSnapshot(
@@ -96,14 +97,20 @@ const Posts = ({ post }) => {
           {post.data().text}
         </p>
         {/* post image */}
-        <img
-          className="rounded-xl mr-4"
-          src={post?.data()?.image}
-          alt=""
-        />
+        <img className="rounded-xl mr-4" src={post?.data()?.image} alt="" />
         {/* icons */}
         <div className="flex justify-between text-gray-500 p-2">
-          <HiOutlineChat onClick={()=>setOpen(!open)} className="h-9 w-9 hoverEffect p-1.5 hover:text-[#a359a0] hover:bg-purple-100" />
+          <HiOutlineChat
+            onClick={() => {
+              if (!session) {
+                signIn();
+              } else {
+                setPostId(post.id);
+                setOpen(!open);
+              }
+            }}
+            className="h-9 w-9 hoverEffect p-1.5 hover:text-[#a359a0] hover:bg-purple-100"
+          />
           {session?.user.uid === post?.data().id && (
             <HiOutlineTrash
               onClick={deletePost}
